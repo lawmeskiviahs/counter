@@ -41,11 +41,12 @@ function App() {
 
   async function createCounter() {    
     const provider = await getProvider()
+    let amount = 10;
     /* create the program interface combining the idl, program ID, and provider */
     const program = new Program(idl, programID, provider);
     try {
       /* interact with the program via rpc */
-      await program.rpc.create({
+      await program.rpc.create(amount, {
         accounts: {
           baseAccount: baseAccount.publicKey,
           user: provider.wallet.publicKey,
