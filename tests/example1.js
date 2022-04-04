@@ -1,4 +1,3 @@
-// import * as anchor from '../node_modules/@project-serum/anchor';
 const assert = require("assert");
 const anchor = require("@project-serum/anchor");
 const { SystemProgram } = anchor.web3;
