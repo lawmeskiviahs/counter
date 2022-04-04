@@ -6,22 +6,24 @@ const solanaWeb3 = require('@solana/web3.js');
 // const SystemProgram = require("@solana/web3.js")
 const { SystemProgram } = anchor.web3;
 const provider = anchor.Provider.env();
+anchor.setProvider(provider);
+// const path = anchor.Provider.env.generate;
 const program = anchor.workspace.Example1;
 const programId = new anchor.web3.PublicKey("4Y8PGKfY7q5hxDA17h6UHk5eACo6k9idy1chiHb7HKsp");
 // async function main (){}
 async function deposit() {
-    const userPubKey = new anchor.web3.PublicKey("5wbnW6cAoT2Rdwk5ecdgpCzoCp3g9rV7Vr5jNFAJBbCY");
-    // const referrerPubKey = new solanaWeb3.PublicKey("");
-    const remainingAccounts=[];
+  const userPubKey = new anchor.web3.PublicKey("5wbnW6cAoT2Rdwk5ecdgpCzoCp3g9rV7Vr5jNFAJBbCY");
+  const vaultPubKey = new anchor.web3.PublicKey("9jud739eoWfqPcJ3h2x7oLVeT4ULJCwHTt59cRg4taBb");
+  const remainingAccounts=[];
+  // console.log(".....>>>>>",provider);
     const idl = await anchor.Program.fetchIdl(programId, provider);
   const program = new anchor.Program(idl, programId, provider);
   let amount = 2;
     
-    
     await program.rpc.deposit(amount,{
       accounts: {
           pool: userPubKey,
-          vault: userPubKey,
+          vault: vaultPubKey,
          // referrer: userPubKey,
           //systemProgram: SystemProgram.programId,
           // rent: anchor.web3.SYSVAR_RENT_PUBKEY,
@@ -34,4 +36,5 @@ async function deposit() {
     });
 }
 deposit();
+
 console.log('deposit function called.')
